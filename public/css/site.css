@@ -367,10 +367,6 @@ body:has(.site-news-sidebar[open]) .site-news-backdrop {
         text-transform: uppercase;
     }
 
-    .site-news-sidebar-item a::after,
-    .site-news-sidebar-all::after {
-        content: " \\2192";
-    }
 
     .site-news-sidebar-item a:hover,
     .site-news-sidebar-all:hover {
