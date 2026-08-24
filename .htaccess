@@ -1,0 +1,24 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "(^\.|^(artisan|composer\.(json|lock)|composer-audit-temp\.phar|phpunit\.xml|README.*|tmp_.*|Fauna)$)">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /MIBNP_PAMO/
+
+    # Never expose application code or private runtime data when this
+    # development-only project-root fallback is enabled.
+    RewriteRule ^(?:app|bootstrap|config|database|resources|routes|storage|tests|tools|vendor)(?:/|$) - [F,L,NC]
+
+    # Development-only fallback: redirect a default XAMPP project directory
+    # into Laravel's public directory. Production must use public/ as its
+    # document root and will not use this file.
+    RewriteRule ^public(?:/|$) - [L]
+    RewriteRule ^$ public/ [R=302,L]
+    RewriteRule ^(.*)$ public/$1 [R=302,L]
+</IfModule>
