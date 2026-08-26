@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\EnsureStaffAdministrator;
+use App\Http\Middleware\RestrictLocalStaffAccess;
 use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,6 +16,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(SecurityHeaders::class);
+
+        $middleware->alias([
+            'staff.admin' => EnsureStaffAdministrator::class,
+            'staff.local' => RestrictLocalStaffAccess::class,
+        ]);
+
+        $middleware->redirectGuestsTo(fn () => route('staff.login'));
+        $middleware->redirectUsersTo(fn () => route('staff.news.index'));
 
         $middleware->trustHosts(
             at: static fn (): array => config('http.trusted_hosts', []),

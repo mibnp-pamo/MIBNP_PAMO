@@ -4,12 +4,15 @@ namespace Tests\Feature;
 
 use App\Mail\VisitationRequestMail;
 use App\Support\PublicSiteContent;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_the_application_returns_a_successful_response(): void
     {
         $response = $this->get('/');

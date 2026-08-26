@@ -12,7 +12,7 @@
         <div class="site-news-sidebar-heading">
             <div class="site-news-sidebar-kicker">
                 <p class="section-tag">News &amp; Announcements</p>
-                <span class="site-news-sidebar-live"><span aria-hidden="true"></span>Latest</span>
+                <span class="site-news-sidebar-live">Featured</span>
             </div>
             <h2 id="site-news-sidebar-title">Latest field updates</h2>
             <p>Official partner notices and conservation stories from across the Mts. Iglit-Baco landscape.</p>
@@ -23,15 +23,21 @@
                 <article class="site-news-sidebar-item">
                     <div class="site-news-sidebar-meta">
                         <span>{{ $item['source'] }}</span>
-                        <span>{{ $item['tag'] }}</span>
+                        <span>{{ $item['status'] }}</span>
                     </div>
+                    <p class="site-news-sidebar-category">{{ $item['tag'] }}</p>
                     <h3>{{ $item['title'] }}</h3>
-                    <a
-                        href="{{ $item['url'] }}"
-                        @if ($item['external']) target="_blank" rel="noopener noreferrer" @endif
-                    >
-                        {{ $item['cta'] }}
-                    </a>
+                    <div class="site-news-sidebar-links">
+                        <a
+                            href="{{ $item['url'] }}"
+                            @if ($item['external']) target="_blank" rel="noopener noreferrer" @endif
+                        >
+                            {{ $item['cta'] }}
+                        </a>
+                        @if (!empty($item['document_url']))
+                            <a href="{{ $item['document_url'] }}">Download PDF</a>
+                        @endif
+                    </div>
                 </article>
             @endforeach
         </div>

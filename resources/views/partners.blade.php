@@ -92,13 +92,23 @@
                                 <h3>{{ $featuredNews['title'] }}</h3>
                                 <p>{{ $featuredNews['body'] }}</p>
 
-                                <a
-                                    class="news-corner-link"
-                                    href="{{ $featuredNews['url'] }}"
-                                    @if ($featuredNews['external']) target="_blank" rel="noopener noreferrer" @endif
-                                >
-                                    {{ $featuredNews['cta'] }}
-                                </a>
+                                <div class="news-corner-actions">
+                                    <a
+                                        class="news-corner-link"
+                                        href="{{ $featuredNews['url'] }}"
+                                        @if ($featuredNews['external']) target="_blank" rel="noopener noreferrer" @endif
+                                    >
+                                        {{ $featuredNews['cta'] }}
+                                    </a>
+                                    @if (!empty($featuredNews['document_url']))
+                                        <a class="news-corner-link news-corner-document-link" href="{{ $featuredNews['document_url'] }}">
+                                            {{ $featuredNews['document_name'] }}
+                                            @if ($featuredNews['document_size'])
+                                                <span>{{ $featuredNews['document_size'] }}</span>
+                                            @endif
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
                         </article>
 
@@ -130,13 +140,23 @@
                                             <p class="news-corner-brief-status">{{ $item['status'] }}</p>
                                         @endif
 
-                                        <a
-                                            class="news-corner-link"
-                                            href="{{ $item['url'] }}"
-                                            @if ($item['external']) target="_blank" rel="noopener noreferrer" @endif
-                                        >
-                                            {{ $item['cta'] }}
-                                        </a>
+                                        <div class="news-corner-actions">
+                                            <a
+                                                class="news-corner-link"
+                                                href="{{ $item['url'] }}"
+                                                @if ($item['external']) target="_blank" rel="noopener noreferrer" @endif
+                                            >
+                                                {{ $item['cta'] }}
+                                            </a>
+                                            @if (!empty($item['document_url']))
+                                                <a class="news-corner-link news-corner-document-link" href="{{ $item['document_url'] }}">
+                                                    {{ $item['document_name'] }}
+                                                    @if ($item['document_size'])
+                                                        <span>{{ $item['document_size'] }}</span>
+                                                    @endif
+                                                </a>
+                                            @endif
+                                        </div>
                                     </article>
                                 @endforeach
                             </div>

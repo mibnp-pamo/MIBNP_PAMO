@@ -11,9 +11,7 @@
     $canonicalUrl = $canonicalUrl ?? url()->current();
     $socialImage = $socialImage ?? \App\Support\PublicSiteContent::optimizedAsset('bckgrndHome/hbg0.jpg');
     $showSiteNewsSidebar = $showSiteNewsSidebar ?? $bodyClass !== 'geography-page';
-    $siteNewsItems = $siteNewsItems ?? ($showSiteNewsSidebar
-        ? collect(\App\Support\PublicSiteContent::partners()['newsItems'] ?? [])->take(3)->all()
-        : []);
+    $siteNewsItems = $siteNewsItems ?? [];
 @endphp
 <!DOCTYPE html>
 <html lang="en">

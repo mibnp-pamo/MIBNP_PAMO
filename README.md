@@ -41,6 +41,44 @@ For the included XAMPP environment, `php` may need to be replaced with:
 C:\xampp\php\php.exe artisan serve
 ```
 
+### Local staff news editor
+
+The news sidebar and News Corner are managed from a private staff area backed by
+the application database. Prepare it after installing the project:
+
+```powershell
+C:\xampp\php\php.exe artisan migrate --seed
+C:\xampp\php\php.exe artisan storage:link
+C:\xampp\php\php.exe artisan staff:create pamoStaff --name="PAMO Administrator"
+```
+
+The last command requests the password privately in the terminal and never
+prints or stores it as plain text. Local accounts require at least 8 characters;
+production accounts require at least 12. Add a real address with
+`--email=staff@example.gov.ph` when needed. No public account registration route
+exists.
+
+When the project is opened through its current XAMPP directory, staff can sign
+in at:
+
+```text
+http://localhost/MIBNP_PAMO/public/pamo-staff/login
+```
+
+When using `artisan serve`, use the displayed local origin followed by
+`/pamo-staff/login`, for example `http://127.0.0.1:8000/pamo-staff/login`.
+The URL is not present in public navigation or the sitemap. In the `local`
+environment, requests to the staff area from devices other than the host
+computer return 404. Authentication still protects all editor routes.
+
+Staff can create drafts, schedule publication and expiration, feature an item,
+upload a JPEG/PNG/WebP image of up to 5 MB, attach a visitor-facing PDF of up to
+10 MB, preview the result, and publish it. Public PDFs are stored on Laravel's
+private disk and served through a visibility-checked download route, so documents
+belonging to drafts, scheduled, expired, or removed updates are not downloadable.
+PDFs containing scripts, embedded files, or launch actions are rejected. Removed
+items are soft-deleted so their database records remain recoverable.
+
 The local template deliberately uses the log mailer. A visitation form submitted with the `log` or `array` mailer now returns a delivery error instead of falsely claiming that the office received it.
 
 ## Production deployment
@@ -101,6 +139,8 @@ Make `storage/` and `bootstrap/cache/` writable by the PHP/web-server account, t
 
 ```bash
 php artisan migrate --force
+php artisan storage:link
+php artisan staff:create pamoStaff --name="PAMO Administrator" --email=staff@example.gov.ph
 php artisan optimize
 php artisan app:production-check
 ```
@@ -116,6 +156,9 @@ If the last command reports an issue, do not publish the virtual host.
 - Verify that the SMTP provider accepts the configured sender and that the PAMO mailbox receives a real form submission.
 - Restrict direct access to the origin when a CDN or reverse proxy is used.
 - Back up the production database and document the restore procedure.
+- Back up `storage/app/private/news-documents/` with the database; it contains
+  the public news documents managed by staff but is intentionally not directly
+  web-accessible.
 
 For visitation-form delivery, request a dedicated sending mailbox or SMTP
 credential from the organization's mail administrator. Configure the production
