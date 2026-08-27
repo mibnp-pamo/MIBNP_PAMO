@@ -113,7 +113,7 @@ class NewsPost extends Model
 
     public function documentDisplayName(): string
     {
-        return $this->document_label ?: ($this->document_name ?: 'Download document');
+        return $this->document_label ?: ($this->document_name ?: 'View document');
     }
 
     public function documentSizeLabel(): ?string

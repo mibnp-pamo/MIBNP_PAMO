@@ -101,10 +101,28 @@ class ExampleTest extends TestCase
     public function test_the_biodiversity_page_returns_a_successful_response(): void
     {
         $response = $this->get('/biodiversity');
+        $profiles = collect(PublicSiteContent::biodiversity()['faunaProfiles'])->keyBy('title');
 
         $response->assertStatus(200);
         $response->assertSee('class="gallery-highlight-card biodiversity-flora-card"', false);
         $response->assertDontSee('class="gallery-frame-card biodiversity-flora-card"', false);
+        $response->assertSee('Philippine%20Brown%20Deer.jpg', false);
+        $response->assertSee('Limnonectes%20beloncioi%20%281%29.jpg', false);
+        $response->assertSee('Leptobrachium%20mangyanorum%20%281%29.jpg', false);
+        $response->assertSee('Mindoro%20Variable%20Backed%20Frog.jpg', false);
+        $response->assertSee('Mindoro%20Stream%20Frog%20%28Pulchrana%20mangyanum%29%202.JPG', false);
+        $response->assertSee('Mindoro%20Shrub%20Frog%20%28Philautus%20schmackeri%29%201.JPG', false);
+        $response->assertSee('Mindoro%20Bulbul.JPG', false);
+        $response->assertSee('Mindoro%20Racquet%20-%20Tail%20Parrot.jpg', false);
+        $response->assertSee('2 photos');
+        $this->assertStringContainsString('Philippine%20Brown%20Deer.jpg', $profiles['Philippine Brown Deer']['image']);
+        $this->assertStringContainsString('Limnonectes%20beloncioi%20%281%29.jpg', $profiles['Mindoro Fanged Frog']['image']);
+        $this->assertStringContainsString('Leptobrachium%20mangyanorum%20%281%29.jpg', $profiles['Mindoro Litter Frog']['image']);
+        $this->assertStringContainsString('Mindoro%20Variable%20Backed%20Frog.jpg', $profiles['Mindoro Variable-backed Frog']['image']);
+        $this->assertStringContainsString('Mindoro%20Stream%20Frog', $profiles['Mindoro Variable-backed Frog']['additional_images'][0]['image']);
+        $this->assertStringContainsString('Mindoro%20Shrub%20Frog', $profiles['Mindoro Tree Frog']['image']);
+        $this->assertStringContainsString('Mindoro%20Bulbul.JPG', $profiles['Mindoro Bulbul']['image']);
+        $this->assertStringContainsString('Mindoro%20Racquet%20-%20Tail%20Parrot.jpg', $profiles['Mindoro Racquet Tail']['image']);
     }
 
     public function test_the_gallery_page_returns_a_successful_response(): void

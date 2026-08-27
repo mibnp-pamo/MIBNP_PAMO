@@ -158,7 +158,7 @@ class PublicSiteContent
     }
 
     /**
-     * @return array<int, array<string, string|null>>
+     * @return array<int, array<string, mixed>>
      */
     private static function biodiversityFaunaProfiles(): array
     {
@@ -174,8 +174,8 @@ class PublicSiteContent
                 'body' => 'is a small, sturdy wild buffalo endemic to the island of Mindoro in the Philippines and is one of the country\'s most iconic and endangered mammals. It is distinguished by its compact body, dark brown to grayish-black coat, short muscular legs, and V-shaped horns that project upward and slightly outward. Adult Tamaraws typically stand 100–105 cm at the shoulder and weigh 180–300 kg.',
             ],
             [
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/mammals/Philippine Brown Deer.jpg'),
+                'alt' => 'Philippine Brown Deer documented in Mounts Iglit-Baco Natural Park',
                 'meta' => 'Philippine Endemic Mammal',
                 'philippines_red_list_status' => 'EN',
                 'fauna_group' => 'mammals',
@@ -224,8 +224,8 @@ class PublicSiteContent
                 'body' => '',
             ],
             [
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/frogs and lizards/Limnonectes beloncioi (1).jpg'),
+                'alt' => 'Mindoro Fanged Frog documented in Mounts Iglit-Baco Natural Park',
                 'meta' => 'Mindoro Endemic Frog',
                 'philippines_red_list_status' => 'OWS',
                 'fauna_group' => 'amphibians',
@@ -234,8 +234,8 @@ class PublicSiteContent
                 'body' => '',
             ],
             [
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/frogs and lizards/Leptobrachium mangyanorum (1).jpg'),
+                'alt' => 'Mindoro Litter Frog documented in Mounts Iglit-Baco Natural Park',
                 'meta' => 'Mindoro-Endemic Frog',
                 'philippines_red_list_status' => 'OTS',
                 'fauna_group' => 'amphibians',
@@ -244,8 +244,14 @@ class PublicSiteContent
                 'body' => '',
             ],
             [
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/frogs and lizards/Mindoro Variable Backed Frog.jpg'),
+                'alt' => 'Mindoro Variable-backed Frog documented in Mounts Iglit-Baco Natural Park',
+                'additional_images' => [
+                    [
+                        'image' => self::optimizedAsset('biodiversity-assets/frogs and lizards/Mindoro Stream Frog (Pulchrana mangyanum) 2.JPG'),
+                        'alt' => 'Mindoro Variable-backed Frog in stream habitat at Mounts Iglit-Baco Natural Park',
+                    ],
+                ],
                 'meta' => 'Mindoro Endemic Frog',
                 'philippines_red_list_status' => 'OWS',
                 'fauna_group' => 'amphibians',
@@ -254,8 +260,8 @@ class PublicSiteContent
                 'body' => '',
             ],
             [
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/frogs and lizards/Mindoro Shrub Frog (Philautus schmackeri) 1.JPG'),
+                'alt' => 'Mindoro Tree Frog documented in Mounts Iglit-Baco Natural Park',
                 'meta' => 'Mindoro Endemic Frog',
                 'philippines_red_list_status' => 'EN',
                 'fauna_group' => 'amphibians',
@@ -411,7 +417,10 @@ class PublicSiteContent
                     return null;
                 }
 
-                $image = $imagesByTitle->get($title);
+                $configuredImage = $profile['image'] ?? null;
+                $image = is_string($configuredImage) && $configuredImage !== ''
+                    ? $configuredImage
+                    : $imagesByTitle->get($title);
 
                 if (! is_string($image) || $image === '') {
                     return null;
@@ -456,8 +465,8 @@ class PublicSiteContent
             ]),
 
             self::withEbirdAcknowledgement([
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/birds/Birds/Mindoro Racquet - Tail Parrot.jpg'),
+                'alt' => 'Mindoro Racquet Tail documented in Mounts Iglit-Baco Natural Park',
                 'meta' => 'Mindoro-endemic bird',
                 'philippines_red_list_status' => 'EN',
                 'fauna_group' => 'birds',
@@ -467,8 +476,8 @@ class PublicSiteContent
             ]),
 
             self::withEbirdAcknowledgement([
-                'image' => null,
-                'alt' => '',
+                'image' => self::optimizedAsset('biodiversity-assets/birds/Birds/Mindoro Bulbul.JPG'),
+                'alt' => 'Mindoro Bulbul documented in Mounts Iglit-Baco Natural Park',
                 'meta' => 'Mindoro-endemic bird',
                 'philippines_red_list_status' => 'OWS',
                 'fauna_group' => 'birds',

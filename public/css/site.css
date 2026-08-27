@@ -2504,7 +2504,7 @@ body:has(.site-news-sidebar[open]) .site-news-backdrop {
 }
 
 .news-corner-document-link::after {
-    content: "\2193";
+    content: "\2197";
 }
 
 .news-corner-document-link span {
@@ -3925,7 +3925,36 @@ body:has(.site-news-sidebar[open]) .site-news-backdrop {
 }
 
 .biodiversity-page .gallery-highlight-card .gallery-card-image {
+    position: relative;
     aspect-ratio: 5 / 6;
+}
+
+.biodiversity-page .gallery-card-image.has-multiple-images {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.biodiversity-page .gallery-card-image.has-multiple-images img {
+    min-width: 0;
+}
+
+.biodiversity-photo-count {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    z-index: 1;
+    padding: 7px 11px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    color: #ffffff;
+    background: rgba(8, 18, 14, 0.78);
+    box-shadow: 0 8px 18px rgba(4, 10, 8, 0.22);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    pointer-events: none;
 }
 
 .biodiversity-page .gallery-collection-grid .gallery-card-image,

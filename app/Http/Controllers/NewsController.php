@@ -19,12 +19,14 @@ class NewsController extends Controller
             404,
         );
 
-        $response = Storage::disk('local')->download(
+        $response = Storage::disk('local')->response(
             $newsPost->document_path,
             $newsPost->document_name ?: Str::slug($newsPost->title).'.pdf',
             ['Content-Type' => 'application/pdf'],
+            'inline',
         );
         $response->headers->set('Cache-Control', 'no-store, private');
+        $response->headers->set('X-Content-Type-Options', 'nosniff');
 
         return $response;
     }

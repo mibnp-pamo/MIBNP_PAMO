@@ -226,6 +226,7 @@
                                                     @php($philippinesRedListStatusSymbol = $philippinesRedListStatusSymbols[$philippinesRedListStatus] ?? null)
                                                     @php($showScientificName = is_string($profileScientificName) && trim($profileScientificName) !== '' && strcasecmp(trim($profileScientificName), trim($profile['title'])) !== 0)
                                                     @php($profileLightboxTitleHtml = $showScientificName ? $profileTitleHtml.'<span class="lightbox-scientific-name"><em>'.e($profileScientificName).'</em></span>' : $profileTitleHtml)
+                                                    @php($additionalImages = collect($profile['additional_images'] ?? [])->filter(fn ($image) => is_array($image) && !empty($image['image'])))
                                                     <article
                                                         class="gallery-highlight-card biodiversity-fauna-card{{ empty($profile['image']) ? ' is-empty' : '' }}"
                                                         @unless (empty($profile['image']))
@@ -244,10 +245,18 @@
                                                             aria-label="Open {{ $profile['title'] }}"
                                                         @endunless
                                                     >
-                                                        <div class="gallery-card-image">
+                                                        <div class="gallery-card-image{{ $additionalImages->isNotEmpty() ? ' has-multiple-images' : '' }}">
                                                             @unless (empty($profile['image']))
                                                                 <img src="{{ $profile['image'] }}" alt="{{ $profile['alt'] }}" loading="lazy" decoding="async">
                                                             @endunless
+                                                            @foreach ($additionalImages as $additionalImage)
+                                                                <img src="{{ $additionalImage['image'] }}" alt="" loading="lazy" decoding="async" aria-hidden="true">
+                                                            @endforeach
+                                                            @if ($additionalImages->isNotEmpty())
+                                                                <span class="biodiversity-photo-count" aria-label="{{ $additionalImages->count() + 1 }} photos">
+                                                                    {{ $additionalImages->count() + 1 }} photos
+                                                                </span>
+                                                            @endif
                                                         </div>
                                                         <div class="gallery-highlight-copy">
                                                             <div class="biodiversity-card-meta-row">
@@ -273,6 +282,21 @@
                                                             @endif
                                                         </div>
                                                     </article>
+                                                    @foreach ($additionalImages as $additionalImage)
+                                                        <span
+                                                            hidden
+                                                            data-lightbox-item
+                                                            data-lightbox-group="fauna"
+                                                            data-lightbox-src="{{ $additionalImage['image'] }}"
+                                                            data-lightbox-alt="{{ $additionalImage['alt'] ?? $profile['alt'] }}"
+                                                            data-lightbox-title="{{ $profile['title'] }}"
+                                                            data-lightbox-title-html="{{ $profileLightboxTitleHtml }}"
+                                                            data-lightbox-description="{{ $profile['body'] }}"
+                                                            data-lightbox-description-html="{{ $profileLightboxDescriptionHtml }}"
+                                                            data-lightbox-meta="{{ $profile['meta'] }}"
+                                                            data-lightbox-credit="{{ $additionalImage['credit'] ?? ($profile['credit'] ?? '') }}"
+                                                        ></span>
+                                                    @endforeach
                                                 @endforeach
                                             </div>
                                         @else

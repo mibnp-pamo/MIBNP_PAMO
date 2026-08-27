@@ -101,7 +101,12 @@
                                         {{ $featuredNews['cta'] }}
                                     </a>
                                     @if (!empty($featuredNews['document_url']))
-                                        <a class="news-corner-link news-corner-document-link" href="{{ $featuredNews['document_url'] }}">
+                                        <a
+                                            class="news-corner-link news-corner-document-link"
+                                            href="{{ $featuredNews['document_url'] }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
                                             {{ $featuredNews['document_name'] }}
                                             @if ($featuredNews['document_size'])
                                                 <span>{{ $featuredNews['document_size'] }}</span>
@@ -149,7 +154,12 @@
                                                 {{ $item['cta'] }}
                                             </a>
                                             @if (!empty($item['document_url']))
-                                                <a class="news-corner-link news-corner-document-link" href="{{ $item['document_url'] }}">
+                                                <a
+                                                    class="news-corner-link news-corner-document-link"
+                                                    href="{{ $item['document_url'] }}"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
                                                     {{ $item['document_name'] }}
                                                     @if ($item['document_size'])
                                                         <span>{{ $item['document_size'] }}</span>

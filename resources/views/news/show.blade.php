@@ -22,15 +22,20 @@
                     @endif
 
                     @if ($newsPost->document_path)
-                        <a class="news-document-card" href="{{ route('news.document', $newsPost) }}">
+                        <a
+                            class="news-document-card"
+                            href="{{ route('news.document', $newsPost) }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <span class="news-document-icon" aria-hidden="true">PDF</span>
                             <span>
                                 <strong>{{ $newsPost->documentDisplayName() }}</strong>
                                 <small>
-                                    Download PDF{{ $newsPost->documentSizeLabel() ? ' · '.$newsPost->documentSizeLabel() : '' }}
+                                    View PDF{{ $newsPost->documentSizeLabel() ? ' · '.$newsPost->documentSizeLabel() : '' }}
                                 </small>
                             </span>
-                            <span class="news-document-arrow" aria-hidden="true">↓</span>
+                            <span class="news-document-arrow" aria-hidden="true">↗</span>
                         </a>
                     @endif
 

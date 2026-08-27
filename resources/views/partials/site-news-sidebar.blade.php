@@ -35,7 +35,7 @@
                             {{ $item['cta'] }}
                         </a>
                         @if (!empty($item['document_url']))
-                            <a href="{{ $item['document_url'] }}">Download PDF</a>
+                            <a href="{{ $item['document_url'] }}" target="_blank" rel="noopener noreferrer">View PDF</a>
                         @endif
                     </div>
                 </article>

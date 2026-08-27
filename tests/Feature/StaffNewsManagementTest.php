@@ -154,7 +154,8 @@ class StaffNewsManagementTest extends TestCase
         $this->get(route('news.document', $newsPost))
             ->assertOk()
             ->assertHeader('Cache-Control', 'no-store, private')
-            ->assertDownload('visitor-guide.pdf');
+            ->assertHeader('Content-Disposition', 'inline; filename=visitor-guide.pdf')
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
 
         $documentPath = $newsPost->document_path;
         $this->actingAs($administrator)
