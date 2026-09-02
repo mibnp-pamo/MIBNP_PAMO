@@ -228,7 +228,7 @@
                                                     @php($profileLightboxTitleHtml = $showScientificName ? $profileTitleHtml.'<span class="lightbox-scientific-name"><em>'.e($profileScientificName).'</em></span>' : $profileTitleHtml)
                                                     @php($additionalImages = collect($profile['additional_images'] ?? [])->filter(fn ($image) => is_array($image) && !empty($image['image'])))
                                                     <article
-                                                        class="gallery-highlight-card biodiversity-fauna-card{{ empty($profile['image']) ? ' is-empty' : '' }}"
+                                                        class="gallery-highlight-card biodiversity-fauna-card{{ empty($profile['image']) ? ' is-empty' : '' }}{{ $additionalImages->isNotEmpty() ? ' has-multiple-images' : '' }}"
                                                         @unless (empty($profile['image']))
                                                             data-lightbox-item
                                                             data-lightbox-group="fauna"
@@ -242,16 +242,13 @@
                                                             data-lightbox-credit="{{ $profile['credit'] ?? '' }}"
                                                             role="button"
                                                             tabindex="0"
-                                                            aria-label="Open {{ $profile['title'] }}"
+                                                            aria-label="Open {{ $additionalImages->isNotEmpty() ? ($additionalImages->count() + 1).' photos of ' : '' }}{{ $profile['title'] }}"
                                                         @endunless
                                                     >
-                                                        <div class="gallery-card-image{{ $additionalImages->isNotEmpty() ? ' has-multiple-images' : '' }}">
+                                                        <div class="gallery-card-image">
                                                             @unless (empty($profile['image']))
                                                                 <img src="{{ $profile['image'] }}" alt="{{ $profile['alt'] }}" loading="lazy" decoding="async">
                                                             @endunless
-                                                            @foreach ($additionalImages as $additionalImage)
-                                                                <img src="{{ $additionalImage['image'] }}" alt="" loading="lazy" decoding="async" aria-hidden="true">
-                                                            @endforeach
                                                             @if ($additionalImages->isNotEmpty())
                                                                 <span class="biodiversity-photo-count" aria-label="{{ $additionalImages->count() + 1 }} photos">
                                                                     {{ $additionalImages->count() + 1 }} photos
