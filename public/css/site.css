@@ -3414,29 +3414,6 @@ body:has(.site-news-sidebar[open]) .site-news-backdrop {
     background: rgba(8, 18, 14, 0.72);
 }
 
-.gallery-page .site-background-slide {
-    filter: saturate(0.78) brightness(0.92) contrast(0.96);
-}
-
-.gallery-page .site-background-slide::after {
-    background:
-        linear-gradient(180deg, rgba(5, 12, 10, 0.16) 0%, rgba(5, 12, 10, 0.24) 100%),
-        radial-gradient(circle at 24% 24%, rgba(17, 41, 33, 0.18), transparent 30%);
-}
-
-.gallery-page .site-background-scrim {
-    background:
-        linear-gradient(180deg, rgba(5, 12, 10, 0.46) 0%, rgba(5, 12, 10, 0.62) 100%),
-        radial-gradient(circle at 18% 18%, rgba(32, 79, 63, 0.18), transparent 28%),
-        radial-gradient(circle at 82% 24%, rgba(13, 32, 26, 0.14), transparent 26%);
-    backdrop-filter: blur(4px) saturate(0.84);
-}
-
-.gallery-page .gallery-collection-section {
-    position: relative;
-    background: linear-gradient(180deg, rgba(95, 113, 98, 0.96) 0%, rgba(56, 70, 60, 0.98) 100%);
-}
-
 .gallery-page .gallery-collection-layout {
     gap: 22px;
 }
