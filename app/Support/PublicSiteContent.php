@@ -519,7 +519,7 @@ class PublicSiteContent
                 'title' => 'Mindoro Boobook',
                 'scientific_name' => 'Ninox mindorensis',
                 'body' => 'A fairly small owl of lowland and foothill forest and woodland. Rather dark brown on the head and back and reddish-brown on the chest, with bright yellow eyes and thin white eyebrows forming a V. Mindoro Scops-Owl is similar in size and color, but Mindoro Boobook is finely barred all over. Much smaller than Chocolate Boobook, without white on the chest. Song is a fairly high-pitched, descending mournful whistle, “wiiiiuuuuu.”.',
-                'credit' => 'Djop Tabaranza from eBird.org',
+                'credit' => 'Brendan Ryan from eBird.org',
             ]),
 
             self::withEbirdAcknowledgement([
